@@ -1,27 +1,27 @@
-// Import React and ReactDOM libraries
-import React from "react";
-import axios from "axios";
+import React from 'react';
+import unsplash from '../api/unsplash';
+import SearchBar from './SearchBar';
 
-import SearchBar from "./SearchBar";
-
-// Create a React component
 class App extends React.Component {
-  onSearchSubmit(term) {
-    axios.get("https://api.unsplash.com/search/photos", {
+
+  state = { images: [] };
+
+  onSearchSubmit = async (term) => {
+    const response = await unsplash.get('/search/photos', {
       params: { query: term },
-      headers: {
-        Authorization:
-          "Client-ID 17b664efc6d7000313425d5dd3ad8598af7bd451be4cf21c3aae9aad5f380fcc"
-      }
     });
-  }
+
+    this.setState({ images: response.data.results });
+  };
+
   render() {
     return (
-      <div className="ui container" style={{ marginTop: "10px" }}>
+      <div className="ui container" style={{ marginTop: '10px' }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
+        Found: {this.state.images.length} images
       </div>
     );
-  }
+  };
 }
 
 export default App;

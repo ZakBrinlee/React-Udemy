@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
 
 class SearchBar extends React.Component {
   state = { term: "" };
 
-  onFormSubmit = event => {
+  // Prevents the form from submitting by pressing enter on any input field
+  onFormSubmit = (event) => {
     event.preventDefault();
     this.props.onSubmit(this.state.term);
-  };
+  }
 
   render() {
     return (
@@ -14,15 +15,14 @@ class SearchBar extends React.Component {
         <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
             <label>Image Search</label>
-            <input
-              type="text"
+            <input type="text"
               value={this.state.term}
-              onChange={event => this.setState({ term: event.target.value })}
-            />
+
+              onChange={(e) => this.setState({ term: e.target.value })} />
           </div>
         </form>
-      </div>
-    );
+      </div >
+    )
   }
 }
 
